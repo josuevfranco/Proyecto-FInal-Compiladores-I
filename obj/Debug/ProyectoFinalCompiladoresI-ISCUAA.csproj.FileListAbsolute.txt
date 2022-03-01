@@ -1,0 +1,14 @@
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe.config
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.pdb
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.AssemblyReference.cache
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.SuggestedBindingRedirects.cache
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI_ISCUAA.Form1.resources
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI_ISCUAA.Properties.Resources.resources
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.GenerateResource.cache
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.CoreCompileInputs.cache
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.pdb
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\FastColoredTextBox.dll
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\FastColoredTextBox.xml
+D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.CopyComplete
