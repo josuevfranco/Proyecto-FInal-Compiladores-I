@@ -103,7 +103,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1398, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1398, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -318,6 +318,7 @@
             this.tbxCode.CharWidth = 10;
             this.tbxCode.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbxCode.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.tbxCode.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.tbxCode.IsReplaceMode = false;
             this.tbxCode.Language = FastColoredTextBoxNS.Language.CSharp;
             this.tbxCode.LeftBracket = '(';

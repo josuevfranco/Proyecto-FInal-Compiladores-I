@@ -284,32 +284,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
         {
 
         }
-        private void AnalizeCod()
-        {
-            //dGVLexico.Rows.Clear();
-
-            int n = 0, e = 0;
-
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("Token");
-            dt.Columns.Add("Lexema");
-            dt.Columns.Add("Linea");
-            dt.Columns.Add("Columna");
-            dt.Columns.Add("Indice");
-
-            foreach (var tk in csLexer.GetTokens(tbxCode.Text))
-            {
-                if (tk.Name == "ERROR") e++;
-
-                dt.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index);
-
-                dGVLexico2.DataSource = dt;
-                n++;
-            }
-
-            //this.Title = string.Format("Analizador Lexico - {0} tokens {1} errores", n, e);
-        }
+        
         private void AnalizeCode()
         {
             //dGVLexico.Rows.Clear();
@@ -318,6 +293,8 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
             DataTable dt = new DataTable();
             DataTable errores = new DataTable();
+            
+          
 
             errores.Columns.Add("Token");
             errores.Columns.Add("Lexema");
