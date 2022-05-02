@@ -12,3 +12,17 @@ D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompila
 D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\FastColoredTextBox.dll
 D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\bin\Debug\FastColoredTextBox.xml
 D:\Compiladores\ProyectoFinalCompiladoresI-ISCUAA\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.CopyComplete
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe.config
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\bin\Debug\ProyectoFinalCompiladoresI-ISCUAA.pdb
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\bin\Debug\FastColoredTextBox.dll
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\bin\Debug\FastColoredTextBox.xml
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.AssemblyReference.cache
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.SuggestedBindingRedirects.cache
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI_ISCUAA.Form1.resources
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI_ISCUAA.Properties.Resources.resources
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.GenerateResource.cache
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.CoreCompileInputs.cache
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.csproj.CopyComplete
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.exe
+C:\Users\Windows\OneDrive - Universidad Autónoma de Aguascalientes\Documentos\8 Semestre\Compiladores I\PROYECTO FINAL\Proyecto-FInal-Compiladores-I\obj\Debug\ProyectoFinalCompiladoresI-ISCUAA.pdb

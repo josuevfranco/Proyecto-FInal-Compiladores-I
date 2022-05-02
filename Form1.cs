@@ -7,6 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows;
 
 //Para archivos (read, write)
 using System.IO;
@@ -21,9 +30,52 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             InitializeComponent();
         }
 
+        AnalizadorLexico csLexer = new AnalizadorLexico();
+        bool load;
+        List<string> palabrasReservadas;
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            using (StreamReader sr = new StreamReader(@"..\..\AnalizadorLexico.cs"))
+            {
+                //tbxCode.Text = sr.ReadToEnd();
 
+                csLexer.AddTokenRule(@"\s+", "ESPACIO", true);
+                csLexer.AddTokenRule(@"\b[_a-zA-Z][\w]*\b", "IDENTIFICADOR");
+                csLexer.AddTokenRule("\".*?\"", "CADENA");
+                csLexer.AddTokenRule(@"'\\.'|'[^\\]'", "CARACTER");
+                csLexer.AddTokenRule("//[^\r\n]*", "COMENTARIO1");
+                csLexer.AddTokenRule("/[*].*?[*]/", "COMENTARIO2");
+                csLexer.AddTokenRule(@"\d*\.?\d+", "NUMERO");
+                csLexer.AddTokenRule(@"[\(\)\{\}\[\];,]", "DELIMITADOR");
+                csLexer.AddTokenRule(@"[\.=\+\-/*%]", "OPERADOR");
+                csLexer.AddTokenRule(@">|<|==|>=|<=|!", "COMPARADOR");
+
+                palabrasReservadas = new List<string>() { "abstract", "as", "async", "await",
+                "checked", "const", "continue", "default", "delegate", "base", "break", "case",
+                "do", "else", "enum", "event", "explicit", "extern", "false", "finally",
+                "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface",
+                "internal", "is", "lock", "new", "null", "operator","catch",
+                "out", "override", "params", "private", "protected", "public", "readonly",
+                "ref", "return", "sealed", "sizeof", "stackalloc", "static",
+                "switch", "this", "throw", "true", "try", "typeof", "namespace",
+                "unchecked", "unsafe", "virtual", "void", "while", "float", "int", "long", "object",
+                "get", "set", "new", "partial", "yield", "add", "remove", "value", "alias", "ascending",
+                "descending", "from", "group", "into", "orderby", "select", "where",
+                "join", "equals", "using","bool", "byte", "char", "decimal", "double", "dynamic",
+                "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct" };
+
+                csLexer.Compile(RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
+
+                load = true;
+                AnalizeCode();
+                tbxCode.Focus();
+            }
+        }
+        private void WindowLoaded(object sender/*, RoutedEventArgs e*/)
+        {
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -40,7 +92,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
         {
 
             //Limpia el texto contenido en la caja de texto. 
-            fastColoredTextBox1.Text = "";
+            tbxCode.Text = "";
         }
 
         //Método para abrir el archivo
@@ -58,7 +110,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 StreamReader streamReader = new StreamReader(ofd.FileName);
 
                 //Asignar texto al espacio
-                fastColoredTextBox1.Text = streamReader.ReadToEnd();
+                tbxCode.Text = streamReader.ReadToEnd();
 
                 //Cerrar archiv
                 streamReader.Close();
@@ -79,7 +131,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             try
             {
                 StreamWriter sw = new StreamWriter(this.Text);
-                sw.Write(fastColoredTextBox1.Text);
+                sw.Write(tbxCode.Text);
                 sw.Close();
             }catch
             {
@@ -98,7 +150,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             if (sf.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter sr = new StreamWriter(sf.FileName);
-                sr.Write(fastColoredTextBox1.Text);
+                sr.Write(tbxCode.Text);
                 sr.Close();
             }
         }
@@ -116,12 +168,12 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
         private void copiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Copy();
+            tbxCode.Copy();
         }
 
         private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Paste();
+            tbxCode.Paste();
         }
 
         private void colorDeFondoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -133,7 +185,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             if (cd.ShowDialog() == DialogResult.OK)
             {
                 //definir color de fondo al text box
-                fastColoredTextBox1.BackColor = cd.Color;
+                tbxCode.BackColor = cd.Color;
             }
         }
 
@@ -146,7 +198,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             if (cd.ShowDialog() == DialogResult.OK)
             {
                 //definir color de texto al text box
-                fastColoredTextBox1.ForeColor = cd.Color;
+                tbxCode.ForeColor = cd.Color;
             }
         }
 
@@ -159,68 +211,161 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             if (cd.ShowDialog() == DialogResult.OK)
             {
                 //definir color de texto al text box
-                fastColoredTextBox1.Font = cd.Font;
+                tbxCode.Font = cd.Font;
             }
         }
 
         private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Cut();
+            tbxCode.Cut();
         }
 
         private void seleccionarTodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.SelectAll();
+            tbxCode.SelectAll();
         }
 
         private void copiarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Copy();
+            tbxCode.Copy();
         }
 
         private void cortarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Cut();
+            tbxCode.Cut();
         }
 
         private void pegarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Paste();
+            tbxCode.Paste();
         }
 
         private void seleccionarTodoToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            fastColoredTextBox1.SelectAll();
+            tbxCode.SelectAll();
         }
 
         private void copiarToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Copy();
+            tbxCode.Copy();
         }
 
         private void pegarToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Paste();
+            tbxCode.Paste();
         }
 
         private void cortarToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-            fastColoredTextBox1.Cut();
+            tbxCode.Cut();
         }
 
         private void buscarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.ShowFindDialog();
+            tbxCode.ShowFindDialog();
         }
 
         private void irAToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.ShowGoToDialog();
+            tbxCode.ShowGoToDialog();
         }
 
         private void reemplazarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            fastColoredTextBox1.ShowReplaceDialog();
+            tbxCode.ShowReplaceDialog();
+        }
+
+        private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void AnalizeCod()
+        {
+            //dGVLexico.Rows.Clear();
+
+            int n = 0, e = 0;
+
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Token");
+            dt.Columns.Add("Lexema");
+            dt.Columns.Add("Linea");
+            dt.Columns.Add("Columna");
+            dt.Columns.Add("Indice");
+
+            foreach (var tk in csLexer.GetTokens(tbxCode.Text))
+            {
+                if (tk.Name == "ERROR") e++;
+
+                dt.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index);
+
+                dGVLexico2.DataSource = dt;
+                n++;
+            }
+
+            //this.Title = string.Format("Analizador Lexico - {0} tokens {1} errores", n, e);
+        }
+        private void AnalizeCode()
+        {
+            //dGVLexico.Rows.Clear();
+
+            int n = 0, e = 0;
+
+            DataTable dt = new DataTable();
+            DataTable errores = new DataTable();
+
+            errores.Columns.Add("Token");
+            errores.Columns.Add("Lexema");
+            errores.Columns.Add("Linea");
+            errores.Columns.Add("Columna");
+            errores.Columns.Add("Indice");
+
+            dt.Columns.Add("Token");
+            dt.Columns.Add("Lexema");
+            dt.Columns.Add("Linea");
+            dt.Columns.Add("Columna");
+            dt.Columns.Add("Indice");
+
+            foreach (var tk in csLexer.GetTokens(tbxCode.Text))
+            {
+                if (tk.Name == "ERROR")
+                {
+                    e++;
+                    errores.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index);
+                }
+
+                if (tk.Name == "IDENTIFICADOR")
+                    if (palabrasReservadas.Contains(tk.Lexema))
+                        tk.Name = "RESERVADO";
+
+                dt.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index);
+               
+
+                dGVLexico.DataSource = dt;
+                dGVLexico2.DataSource = errores;
+                n++;
+            }
+
+
+            //this.Title = string.Format("Analizador Lexico - {0} tokens {1} errores", n, e);
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxCode_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            if (load)
+                AnalizeCode();
+
+
         }
     }
 }
