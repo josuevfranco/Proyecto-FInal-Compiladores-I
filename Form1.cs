@@ -56,7 +56,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 "checked", "const", "continue", "default", "delegate", "base", "break", "case",
                 "do", "else", "enum", "event", "explicit", "extern", "false", "finally",
                 "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface",
-                "internal", "is", "lock", "new", "null", "operator","catch",
+                "internal", "is", "lock", "new", "null", "operator","catch","program",
                 "out", "override", "params", "private", "protected", "public", "readonly",
                 "ref", "return", "sealed", "sizeof", "stackalloc", "static",
                 "switch", "this", "throw", "true", "try", "typeof", "namespace",
@@ -102,7 +102,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             OpenFileDialog ofd = new OpenFileDialog();
 
             //Filtros para archivos a abrit
-            ofd.Filter = "Text File|*.txt|C#|*.cs";
+            ofd.Filter = "Text File|*.txt|C#|*.cs|*.cpp|";
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -342,6 +342,11 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             if (load)
                 AnalizeCode();
 
+
+        }
+
+        private void tbxCode_Load(object sender, EventArgs e)
+        {
 
         }
     }

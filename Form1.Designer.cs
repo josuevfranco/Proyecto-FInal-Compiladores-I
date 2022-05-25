@@ -318,7 +318,6 @@
             this.tbxCode.CharWidth = 10;
             this.tbxCode.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbxCode.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.tbxCode.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.tbxCode.IsReplaceMode = false;
             this.tbxCode.Language = FastColoredTextBoxNS.Language.CSharp;
             this.tbxCode.LeftBracket = '(';
@@ -336,6 +335,7 @@
             this.tbxCode.WordWrap = true;
             this.tbxCode.Zoom = 100;
             this.tbxCode.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.tbxCode_TextChanged);
+            this.tbxCode.Load += new System.EventHandler(this.tbxCode_Load);
             // 
             // contextMenuStrip1
             // 
