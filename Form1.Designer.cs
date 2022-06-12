@@ -70,15 +70,18 @@
             this.errores = new System.Windows.Forms.TabPage();
             this.dGVLexico2 = new System.Windows.Forms.DataGridView();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.dGVSintactico = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbxCode)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVLexico)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.errores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVLexico2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVSintactico)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -410,9 +413,11 @@
             this.dGVLexico.RowTemplate.Height = 24;
             this.dGVLexico.Size = new System.Drawing.Size(425, 399);
             this.dGVLexico.TabIndex = 0;
+            this.dGVLexico.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGVLexico_CellContentClick);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dGVSintactico);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -483,6 +488,17 @@
             this.tabPage7.Text = "Resultados";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // dGVSintactico
+            // 
+            this.dGVSintactico.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dGVSintactico.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVSintactico.Location = new System.Drawing.Point(5, 3);
+            this.dGVSintactico.Name = "dGVSintactico";
+            this.dGVSintactico.RowHeadersWidth = 51;
+            this.dGVSintactico.RowTemplate.Height = 24;
+            this.dGVSintactico.Size = new System.Drawing.Size(425, 399);
+            this.dGVSintactico.TabIndex = 1;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -505,9 +521,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dGVLexico)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.errores.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dGVLexico2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVSintactico)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -554,6 +572,7 @@
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.DataGridView dGVLexico;
         private System.Windows.Forms.DataGridView dGVLexico2;
+        private System.Windows.Forms.DataGridView dGVSintactico;
     }
 }
 

@@ -2,23 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-
-//Para archivos (read, write)
-using System.IO;
 
 
 namespace ProyectoFinalCompiladoresI_ISCUAA
@@ -30,6 +16,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             InitializeComponent();
         }
 
+        T_SimbolosM Tsimbolos = new T_SimbolosM();
         AnalizadorLexico csLexer = new AnalizadorLexico();
         bool load;
         List<string> palabrasReservadas;
@@ -37,7 +24,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            using (StreamReader sr = new StreamReader(@"..\..\AnalizadorLexico.cs"))
+            /*using (StreamReader sr = new StreamReader(@"..\..\AnalizadorLexico.cs"))
             {
                 //tbxCode.Text = sr.ReadToEnd();
 
@@ -48,21 +35,35 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 csLexer.AddTokenRule("//[^\r\n]*", "COMENTARIO1");
                 csLexer.AddTokenRule("/[*].*?[*]/", "COMENTARIO2");
                 csLexer.AddTokenRule(@"\d*\.?\d+", "NUMERO");
-                csLexer.AddTokenRule(@"[\(\)\{\}\[\];,]", "DELIMITADOR");
-                csLexer.AddTokenRule(@"[\.=\+\-/*%]", "OPERADOR");
-                csLexer.AddTokenRule(@">|<|==|>=|<=|!", "COMPARADOR");
+                csLexer.AddTokenRule(@"[\(\)\{\}\[\]]", "DELIMITADOR");
+                csLexer.AddTokenRule(@"[%]", "OPERADOR");
+                csLexer.AddTokenRule(@">", "MAYORQUE");
+                csLexer.AddTokenRule("==[^*]", "COMPARACION");
+                csLexer.AddTokenRule("!=[^*]", "DIFERENTEDE");
+                csLexer.AddTokenRule(@">=[^*]", "MAYOROIGUALQUE");
+                csLexer.AddTokenRule(@"<", "MENORQUE");
+                csLexer.AddTokenRule(@",", "COMA");
+                csLexer.AddTokenRule(@"[+]", "SUMA");
+                csLexer.AddTokenRule(@"[-]", "RESTA");
+                csLexer.AddTokenRule(@"[*]", "MULTIPLICACION");
+                csLexer.AddTokenRule(@"[/]", "DIVISION");
+                csLexer.AddTokenRule(@"[.]", "PUNTO");
+                csLexer.AddTokenRule(@"[;]", "PUNTOYCOMA");
+                csLexer.AddTokenRule(@"[{^}]", "EXPONENCIAL");
+                csLexer.AddTokenRule(@"[{=}]", "ASIGNACION");
+
 
                 palabrasReservadas = new List<string>() { "abstract", "as", "async", "await",
                 "checked", "const", "continue", "default", "delegate", "base", "break", "case",
-                "do", "else", "enum", "event", "explicit", "extern", "false", "finally",
-                "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface",
+                "do", "else", "enum", "event", "explicit", "extern", "false", "finally","read",
+                "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface","until",
                 "internal", "is", "lock", "new", "null", "operator","catch","program",
                 "out", "override", "params", "private", "protected", "public", "readonly",
-                "ref", "return", "sealed", "sizeof", "stackalloc", "static",
-                "switch", "this", "throw", "true", "try", "typeof", "namespace",
+                "ref", "return", "sealed", "sizeof", "stackalloc", "static","write","not","and", "or",
+                "switch", "this", "throw", "true", "try", "typeof", "namespace","fi",
                 "unchecked", "unsafe", "virtual", "void", "while", "float", "int", "long", "object",
                 "get", "set", "new", "partial", "yield", "add", "remove", "value", "alias", "ascending",
-                "descending", "from", "group", "into", "orderby", "select", "where",
+                "descending", "from", "group", "into", "orderby", "select", "where","program",
                 "join", "equals", "using","bool", "byte", "char", "decimal", "double", "dynamic",
                 "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct" };
 
@@ -71,7 +72,61 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 load = true;
                 AnalizeCode();
                 tbxCode.Focus();
+            }*/
+
+            using (StreamReader sr = new StreamReader(@"..\..\Sintactico.cs"))
+            {
+                //tbxCode.Text = sr.ReadToEnd();
+
+                csLexer.AddTokenRule(@"\s+", "ESPACIO", true);
+                csLexer.AddTokenRule(@"\b[_a-zA-Z][\w]*\b", "IDENTIFICADOR");
+                csLexer.AddTokenRule("\".*?\"", "CADENA");
+                csLexer.AddTokenRule(@"'\\.'|'[^\\]'", "CARACTER");
+                csLexer.AddTokenRule("//[^\r\n]*", "COMENTARIO1");
+                csLexer.AddTokenRule("/[*].*?[*]/", "COMENTARIO2");
+                csLexer.AddTokenRule(@"\d*\.?\d+", "NUMERO");
+                csLexer.AddTokenRule(@"[\(\)\{\}\[\]]", "DELIMITADOR");
+                csLexer.AddTokenRule(@"[%]", "OPERADOR");
+                csLexer.AddTokenRule(@">", "MAYORQUE");
+                csLexer.AddTokenRule("==[^*]", "COMPARACION");
+                csLexer.AddTokenRule("!=[^*]", "DIFERENTEDE");
+                csLexer.AddTokenRule(@">=[^*]", "MAYOROIGUALQUE");
+                csLexer.AddTokenRule(@"<", "MENORQUE");
+                csLexer.AddTokenRule(@",", "COMA");
+                csLexer.AddTokenRule(@"[+]", "SUMA");
+                csLexer.AddTokenRule(@"[-]", "RESTA");
+                csLexer.AddTokenRule(@"[*]", "MULTIPLICACION");
+                csLexer.AddTokenRule(@"[/]", "DIVISION");
+                csLexer.AddTokenRule(@"[.]", "PUNTO");
+                csLexer.AddTokenRule(@"[']", "COMILLA");
+                csLexer.AddTokenRule(@"[;]", "PUNTOYCOMA");
+                csLexer.AddTokenRule(@"[{^}]", "EXPONENCIAL");
+                csLexer.AddTokenRule(@"[{=}]", "ASIGNACION");
+
+
+                palabrasReservadas = new List<string>() { "abstract", "as", "async", "await",
+                "checked", "const", "continue", "default", "delegate", "base", "break", "case",
+                "do", "else", "enum", "event", "explicit", "extern", "false", "finally","read",
+                "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface","until",
+                "internal", "is", "lock", "new", "null", "operator","catch","program",
+                "out", "override", "params", "private", "protected", "public", "readonly",
+                "ref", "return", "sealed", "sizeof", "stackalloc", "static","write","not","and", "or",
+                "switch", "this", "throw", "true", "try", "typeof", "namespace","fi",
+                "unchecked", "unsafe", "virtual", "void", "while", "float", "int", "long", "object",
+                "get", "set", "new", "partial", "yield", "add", "remove", "value", "alias", "ascending",
+                "descending", "from", "group", "into", "orderby", "select", "where","program",
+                "join", "equals", "using","bool", "byte", "char", "decimal", "double", "dynamic",
+                "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct" };
+
+                csLexer.Compile(RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
+
+                load = true;
+                Tsimbolos.Tokens();
+                AnalizeCode();
+                tbxCode.Focus();
             }
+
+
         }
         private void WindowLoaded(object sender/*, RoutedEventArgs e*/)
         {
@@ -293,14 +348,13 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
             DataTable dt = new DataTable();
             DataTable errores = new DataTable();
-            
-          
 
             errores.Columns.Add("Token");
             errores.Columns.Add("Lexema");
             errores.Columns.Add("Linea");
             errores.Columns.Add("Columna");
             errores.Columns.Add("Indice");
+            errores.Columns.Add("Tipo de Error");
 
             dt.Columns.Add("Token");
             dt.Columns.Add("Lexema");
@@ -308,13 +362,15 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             dt.Columns.Add("Columna");
             dt.Columns.Add("Indice");
 
+
             foreach (var tk in csLexer.GetTokens(tbxCode.Text))
             {
                 if (tk.Name == "ERROR")
                 {
                     e++;
-                    errores.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index);
+                    errores.Rows.Add(tk.Name, tk.Lexema, tk.Linea, tk.Columna, tk.Index,"Error Lexico");
                 }
+
 
                 if (tk.Name == "IDENTIFICADOR")
                     if (palabrasReservadas.Contains(tk.Lexema))
@@ -326,10 +382,30 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 dGVLexico.DataSource = dt;
                 dGVLexico2.DataSource = errores;
                 n++;
+
+            }
+            //this.Title = string.Format("Analizador Lexico - {0} tokens {1} errores", n, e);
+        }
+
+        public void ImprimirToken(string token, int i, string linea)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Indice");
+            dt.Columns.Add("Token");
+            dt.Columns.Add("Linea");
+            dt.Columns.Add("Lexema");
+            dt.Columns.Add("Regla");
+            dt.Columns.Add("Descripcion");
+            Tsimbolos.datos.Clear();
+            List<Complete> datos = new List<Complete>();
+            datos = Tsimbolos.BuscarToken(token, i, linea);
+            foreach (var x in datos)
+            {
+                Console.Write(x);
+                dt.Rows.Add(x.IdTk, x.Token, x.Linea, x.Tipo, x.Regla1, x.Descripcion1);
             }
 
-
-            //this.Title = string.Format("Analizador Lexico - {0} tokens {1} errores", n, e);
+            dGVSintactico.DataSource = dt;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -337,15 +413,114 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
         }
 
+
         private void tbxCode_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
             if (load)
+            {
                 AnalizeCode();
+                AnalizadorSintactico();
+            }
+        }
 
+        public void AnalizadorSintactico()
+        {
+            DataTable dt = new DataTable();
+            string[] linea = new string[tbxCode.LinesCount];
+            if (tbxCode.Text != null)
+            {
+                for (int i = 0; i < linea.Length; i++)
+                {
 
+                    linea[i] = tbxCode.GetLineText(i);
+                    if (linea[i] != null)
+                    {
+                        if (Regex.IsMatch(linea[i], @"^int\s+\w+(\s+=\s+\d)*;(|\s)$"))
+                        {
+                            ImprimirToken("int", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s+\d+\.+\d)*;(|\s)$"))
+                        {
+                            ImprimirToken("float", i, linea[i].ToString());
+                        }
+                       
+                        if (Regex.IsMatch(linea[i], @"^string\s+[a-z](1,15)(\s+=\s+[a-z](1,15)')*;$"))
+                        {
+                            ImprimirToken("string", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"^bool\s+[a-z](1,15)(\s+:\s+(true|false))*;$"))
+                        {
+                            ImprimirToken("bool", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"//[^\r\n]*"))
+                        {
+                            ImprimirToken("//", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"[a-z]\s+:+\s[a-z]|(\w)*\s\+\s(\w)*|\d(0,32000)*;+[\r\n]$"))
+                        {
+                            ImprimirToken(":", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"^{|{+[\r\n]$"))
+                        {
+                            ImprimirToken("{", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"^}|}+[\r\n]$"))
+                        {
+                            ImprimirToken("}", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"if\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s\{+[\r\n]$"))
+                        {
+                            ImprimirToken("if", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                            ImprimirToken("(", i, linea[i].ToString());
+                            ImprimirToken(")", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @"else\s*\{+[\r\n]$"))
+                        {
+                            ImprimirToken("else", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @">print\((\w*)|'\w*'\);$"))
+                        {
+                            ImprimirToken(">print", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @">class\s+\w+\s\{+[\r\n]$"))
+                        {
+                            ImprimirToken(">class", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                        }
+                        
+                        if (Regex.IsMatch(linea[i], @">func\s+\w+\s\(+(\s?|\w)+\)\{+[\r\n]$"))
+                        {
+                            ImprimirToken(">func", i, linea[i].ToString());
+                            ImprimirToken("(", i, linea[i].ToString());
+                            ImprimirToken(")", i, linea[i].ToString());
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //TokensData.Items.Clear();
+            }
         }
 
         private void tbxCode_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dGVLexico_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

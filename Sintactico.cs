@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ProyectoFinalCompiladoresI_ISCUAA
 {
-    class AnalizadorLexico
+    class Sintactico
     {
         Regex rex;
         StringBuilder patron;
@@ -14,7 +16,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
         List<string> TNames;
         int[] GNumbers;
 
-        public AnalizadorLexico()
+        public Sintactico()
         {
             requiereCompilar = true;
             TNames = new List<string>();
@@ -87,8 +89,17 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                     if (match.Groups[GNumbers[i]].Success)
                     {
                         string name = rex.GroupNameFromNumber(GNumbers[i]);
+                       
+                        if (Regex.IsMatch(name, @"^(int)\s+\w+(\s+:\s+\d)*;(|\s)$"))
+                        {
+                            yield return new Token("int", match.Value, match.Index, line, (match.Index - start) + 1);
+                        }
+                        else if (Regex.IsMatch(name, @"^(double)\s+\w+(\s+:\s+\d+\.+\d)*;(|\s)$"))
+                        {
+                            yield return new Token("double", match.Value, match.Index, line, (match.Index - start) + 1);
+                        }
 
-                        yield return new Token(name, match.Value, match.Index, line, (match.Index - start) + 1);
+                        //yield return new Token(name, match.Value, match.Index, line, (match.Index - start) + 1);
 
                         break;
                     }
