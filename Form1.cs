@@ -20,61 +20,22 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
         AnalizadorLexico csLexer = new AnalizadorLexico();
         bool load;
         List<string> palabrasReservadas;
+        public DataTable table { get; set; }
 
-
+ 
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*using (StreamReader sr = new StreamReader(@"..\..\AnalizadorLexico.cs"))
-            {
-                //tbxCode.Text = sr.ReadToEnd();
-
-                csLexer.AddTokenRule(@"\s+", "ESPACIO", true);
-                csLexer.AddTokenRule(@"\b[_a-zA-Z][\w]*\b", "IDENTIFICADOR");
-                csLexer.AddTokenRule("\".*?\"", "CADENA");
-                csLexer.AddTokenRule(@"'\\.'|'[^\\]'", "CARACTER");
-                csLexer.AddTokenRule("//[^\r\n]*", "COMENTARIO1");
-                csLexer.AddTokenRule("/[*].*?[*]/", "COMENTARIO2");
-                csLexer.AddTokenRule(@"\d*\.?\d+", "NUMERO");
-                csLexer.AddTokenRule(@"[\(\)\{\}\[\]]", "DELIMITADOR");
-                csLexer.AddTokenRule(@"[%]", "OPERADOR");
-                csLexer.AddTokenRule(@">", "MAYORQUE");
-                csLexer.AddTokenRule("==[^*]", "COMPARACION");
-                csLexer.AddTokenRule("!=[^*]", "DIFERENTEDE");
-                csLexer.AddTokenRule(@">=[^*]", "MAYOROIGUALQUE");
-                csLexer.AddTokenRule(@"<", "MENORQUE");
-                csLexer.AddTokenRule(@",", "COMA");
-                csLexer.AddTokenRule(@"[+]", "SUMA");
-                csLexer.AddTokenRule(@"[-]", "RESTA");
-                csLexer.AddTokenRule(@"[*]", "MULTIPLICACION");
-                csLexer.AddTokenRule(@"[/]", "DIVISION");
-                csLexer.AddTokenRule(@"[.]", "PUNTO");
-                csLexer.AddTokenRule(@"[;]", "PUNTOYCOMA");
-                csLexer.AddTokenRule(@"[{^}]", "EXPONENCIAL");
-                csLexer.AddTokenRule(@"[{=}]", "ASIGNACION");
 
 
-                palabrasReservadas = new List<string>() { "abstract", "as", "async", "await",
-                "checked", "const", "continue", "default", "delegate", "base", "break", "case",
-                "do", "else", "enum", "event", "explicit", "extern", "false", "finally","read",
-                "fixed", "for", "foreach", "goto", "if", "implicit", "in", "interface","until",
-                "internal", "is", "lock", "new", "null", "operator","catch","program",
-                "out", "override", "params", "private", "protected", "public", "readonly",
-                "ref", "return", "sealed", "sizeof", "stackalloc", "static","write","not","and", "or",
-                "switch", "this", "throw", "true", "try", "typeof", "namespace","fi",
-                "unchecked", "unsafe", "virtual", "void", "while", "float", "int", "long", "object",
-                "get", "set", "new", "partial", "yield", "add", "remove", "value", "alias", "ascending",
-                "descending", "from", "group", "into", "orderby", "select", "where","program",
-                "join", "equals", "using","bool", "byte", "char", "decimal", "double", "dynamic",
-                "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct" };
-
-                csLexer.Compile(RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
-
-                load = true;
-                AnalizeCode();
-                tbxCode.Focus();
-            }*/
-
-            using (StreamReader sr = new StreamReader(@"..\..\Sintactico.cs"))
+            table = new DataTable();
+            table.Columns.Add("Indice");
+            table.Columns.Add("Token");
+            table.Columns.Add("Linea");
+            table.Columns.Add("Lexema");
+            table.Columns.Add("Regla");
+            table.Columns.Add("Descripcion");
+          
+            using (StreamReader sr = new StreamReader(@"..\..\AnalizadorLexico.cs"))
             {
                 //tbxCode.Text = sr.ReadToEnd();
 
@@ -116,7 +77,7 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                 "get", "set", "new", "partial", "yield", "add", "remove", "value", "alias", "ascending",
                 "descending", "from", "group", "into", "orderby", "select", "where","program",
                 "join", "equals", "using","bool", "byte", "char", "decimal", "double", "dynamic",
-                "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct" };
+                "sbyte", "short", "string", "uint", "ulong", "ushort", "var", "class", "struct", "write" };
 
                 csLexer.Compile(RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
 
@@ -389,23 +350,17 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
         public void ImprimirToken(string token, int i, string linea)
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Indice");
-            dt.Columns.Add("Token");
-            dt.Columns.Add("Linea");
-            dt.Columns.Add("Lexema");
-            dt.Columns.Add("Regla");
-            dt.Columns.Add("Descripcion");
+
             Tsimbolos.datos.Clear();
             List<Complete> datos = new List<Complete>();
             datos = Tsimbolos.BuscarToken(token, i, linea);
             foreach (var x in datos)
             {
                 Console.Write(x);
-                dt.Rows.Add(x.IdTk, x.Token, x.Linea, x.Tipo, x.Regla1, x.Descripcion1);
+                table.Rows.Add(x.IdTk, x.Token, x.Linea, x.Tipo, x.Regla1, x.Descripcion1);
             }
 
-            dGVSintactico.DataSource = dt;
+            dGVSintactico.DataSource = table;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -425,7 +380,13 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
 
         public void AnalizadorSintactico()
         {
-            DataTable dt = new DataTable();
+            table = new DataTable();
+            table.Columns.Add("Indice");
+            table.Columns.Add("Token");
+            table.Columns.Add("Linea");
+            table.Columns.Add("Lexema");
+            table.Columns.Add("Regla");
+            table.Columns.Add("Descripcion");
             string[] linea = new string[tbxCode.LinesCount];
             if (tbxCode.Text != null)
             {
@@ -439,73 +400,252 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
                         {
                             ImprimirToken("int", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s+\d+\.+\d)*;(|\s)$"))
+
+                        else if (Regex.IsMatch(linea[i], @"^int\s+\w+(\s+=\s+\d)*(|\s)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^int\s+\w+(\s+=)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^int\s+\w$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s+\d+\.+\d)*;(|\s)$"))
                         {
                             ImprimirToken("float", i, linea[i].ToString());
                         }
-                       
-                        if (Regex.IsMatch(linea[i], @"^string\s+[a-z](1,15)(\s+=\s+[a-z](1,15)')*;$"))
+
+                        else if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s+\d+\.+\d)*(|\s)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+
+                        else if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s+\d)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=\s)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^float\s+\w+(\s+=)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^string\s+[a-z](1,15)(\s+=\s+[a-z](1,15)')*;$"))
                         {
                             ImprimirToken("string", i, linea[i].ToString());
                         }
                         
-                        if (Regex.IsMatch(linea[i], @"^bool\s+[a-z](1,15)(\s+:\s+(true|false))*;$"))
+                        else if (Regex.IsMatch(linea[i], @"^bool\s+\w+(\s+=\s+(true|false))*;$"))
                         {
                             ImprimirToken("bool", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @"//[^\r\n]*"))
+
+                        else if (Regex.IsMatch(linea[i], @"^bool\s+\w+(\s+=\s+(true|false))*$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^bool\s+\w+(\s+=\s)*;$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^bool\s+\w+(\s)*;$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+
+                        else if (Regex.IsMatch(linea[i], @"//[^\r\n]*"))
                         {
                             ImprimirToken("//", i, linea[i].ToString());
                         }
                         
-                        if (Regex.IsMatch(linea[i], @"[a-z]\s+:+\s[a-z]|(\w)*\s\+\s(\w)*|\d(0,32000)*;+[\r\n]$"))
+                        /*if (Regex.IsMatch(linea[i], @"[a-z]\s+=+\s[a-z]|(\w)*\s\+\s(\w)*|\d(0,32000)*;+[\r\n]$"))
                         {
-                            ImprimirToken(":", i, linea[i].ToString());
-                        }
-                        
-                        if (Regex.IsMatch(linea[i], @"^{|{+[\r\n]$"))
+                            ImprimirToken("=", i, linea[i].ToString());
+                        }*/
+                       
+                        else if (Regex.IsMatch(linea[i], @"^{$"))
                         {
                             ImprimirToken("{", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @"^}|}+[\r\n]$"))
+
+                        else if (Regex.IsMatch(linea[i], @"^{{{{|{{$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^}$"))
                         {
                             ImprimirToken("}", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @"if\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s\{+[\r\n]$"))
+
+                        else if (Regex.IsMatch(linea[i], @"^}}}|}}$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"if\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s\{$"))
                         {
                             ImprimirToken("if", i, linea[i].ToString());
                             ImprimirToken("{", i, linea[i].ToString());
                             ImprimirToken("(", i, linea[i].ToString());
                             ImprimirToken(")", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @"else\s*\{+[\r\n]$"))
+
+                        else if (Regex.IsMatch(linea[i], @"if\(\w+\s+\w+\)\s\{$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"if\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"if\(\w+\s+\w+\)$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"else\s*\{$"))
                         {
                             ImprimirToken("else", i, linea[i].ToString());
                             ImprimirToken("{", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @">print\((\w*)|'\w*'\);$"))
+
+                        else if (Regex.IsMatch(linea[i], @"else\s$"))
                         {
-                            ImprimirToken(">print", i, linea[i].ToString());
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"write\s+.*?\;$"))
+                        {
+                            ImprimirToken("write", i, linea[i].ToString());
                         }
                         
-                        if (Regex.IsMatch(linea[i], @">class\s+\w+\s\{+[\r\n]$"))
+                        else if (Regex.IsMatch(linea[i], @"write\s+.*?$"))
                         {
-                            ImprimirToken(">class", i, linea[i].ToString());
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"write\s$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"program\s\{$"))
+                        {
+                            ImprimirToken("program", i, linea[i].ToString());
                             ImprimirToken("{", i, linea[i].ToString());
                         }
-                        
-                        if (Regex.IsMatch(linea[i], @">func\s+\w+\s\(+(\s?|\w)+\)\{+[\r\n]$"))
+
+                        else if (Regex.IsMatch(linea[i], @"program\s$"))
                         {
-                            ImprimirToken(">func", i, linea[i].ToString());
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"func\s+\w+\s\(+(\s?|\w)+\)\{$"))
+                        {
+                            ImprimirToken("func", i, linea[i].ToString());
                             ImprimirToken("(", i, linea[i].ToString());
                             ImprimirToken(")", i, linea[i].ToString());
                         }
+
+                        else if (Regex.IsMatch(linea[i], @"read\s+.*?\;$"))
+                        {
+                            ImprimirToken("read", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"read\s+.*?$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"read\s$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"^int\s+\w+,+\w(\s+=\s+\d)*;(|\s)$"))
+                        {
+                            ImprimirToken("int", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"if\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s+then+\s+\{+"))
+                        {
+                            ImprimirToken("if", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                            ImprimirToken("(", i, linea[i].ToString());
+                            ImprimirToken(")", i, linea[i].ToString());
+                            ImprimirToken("then", i, linea[i].ToString());
+                        }
+
+
+                        else if (Regex.IsMatch(linea[i], @"fi"))
+                        {
+                            ImprimirToken("fi", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"while\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s\{$"))
+                        {
+                            ImprimirToken("while", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                            ImprimirToken("(", i, linea[i].ToString());
+                            ImprimirToken(")", i, linea[i].ToString());
+                        }
+
+
+                        else if (Regex.IsMatch(linea[i], @"while\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)\s$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+
+
+                        else if (Regex.IsMatch(linea[i], @"while\(\w+\s+\w+\)\s$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"while\(\w+\s+\w+\)\s\{$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"do\{$"))
+                        {
+                            ImprimirToken("do", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"do$"))
+                        {
+                            ImprimirToken("error", i, linea[i].ToString());
+                        }
+
+                        else if (Regex.IsMatch(linea[i], @"until\(\w+\s(<|>|<=|>=|==|!=)\s+\w+\)+\;$"))
+                        {
+                            ImprimirToken("until", i, linea[i].ToString());
+                            ImprimirToken("{", i, linea[i].ToString());
+                            ImprimirToken("(", i, linea[i].ToString());
+                            ImprimirToken(")", i, linea[i].ToString());
+                        }
+
+
                     }
                 }
             }

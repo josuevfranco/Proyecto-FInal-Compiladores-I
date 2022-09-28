@@ -62,13 +62,13 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             tSimbolos.Add(tk22);
             Constructor_Tsimbolos tk23 = new Constructor_Tsimbolos(23, "!", "Operador logico", " Condicion de negacion ");
             tSimbolos.Add(tk23);
-            Constructor_Tsimbolos tk24 = new Constructor_Tsimbolos(24, "print", "Palabra reservada", " Muestra en consola ");
+            Constructor_Tsimbolos tk24 = new Constructor_Tsimbolos(24, "write", "Palabra reservada", " Muestra en consola ");
             tSimbolos.Add(tk24);
-            Constructor_Tsimbolos tk25 = new Constructor_Tsimbolos(25, "read", "Palabra reservada", " captura un valor desde consola ");
+            Constructor_Tsimbolos tk25 = new Constructor_Tsimbolos(25, "read", "Palabra reservada", " Captura un valor desde consola ");
             tSimbolos.Add(tk25);
             Constructor_Tsimbolos tk26 = new Constructor_Tsimbolos(26, "func", "Palabra reservada", " Define una funcion ");
             tSimbolos.Add(tk26);
-            Constructor_Tsimbolos tk27 = new Constructor_Tsimbolos(27, ">class", "Palabra reservada", " define una clase ");
+            Constructor_Tsimbolos tk27 = new Constructor_Tsimbolos(27, "program", "Palabra reservada", " Define el inicio de un programa");
             tSimbolos.Add(tk27);
             Constructor_Tsimbolos tk28 = new Constructor_Tsimbolos(28, "if", "Palabra reservada", " si tal condicion se cumple ");
             tSimbolos.Add(tk28);
@@ -82,8 +82,18 @@ namespace ProyectoFinalCompiladoresI_ISCUAA
             tSimbolos.Add(tk32);
             Constructor_Tsimbolos tk33 = new Constructor_Tsimbolos(33, "'", "Indicador de texto", " Indica donde comienza y termina un string ");
             tSimbolos.Add(tk33);
-            Constructor_Tsimbolos tk34 = new Constructor_Tsimbolos(34, "error sintactico", "Error ", " Verifica La Sintaxis ");
-            tSimbolos.Add(tk33);
+            Constructor_Tsimbolos tk34 = new Constructor_Tsimbolos(34, "error", "Error ", " Verifica La Sintaxis ");
+            tSimbolos.Add(tk34);
+            Constructor_Tsimbolos tk35 = new Constructor_Tsimbolos(34, "then", "Palabra Reservada ", " Indica un Bloque");
+            tSimbolos.Add(tk35);
+            Constructor_Tsimbolos tk36 = new Constructor_Tsimbolos(34, "fi", "Palabra Reservada", " Final de un if");
+            tSimbolos.Add(tk36);
+            Constructor_Tsimbolos tk37 = new Constructor_Tsimbolos(34, "while", "Palabra Reservada", " Hazlo Mientras se cumpla");
+            tSimbolos.Add(tk37);
+            Constructor_Tsimbolos tk38 = new Constructor_Tsimbolos(34, "do", "Palabra Reservada", " Repetir la ejecución mientras se cumpla");
+            tSimbolos.Add(tk38);
+            Constructor_Tsimbolos tk39 = new Constructor_Tsimbolos(34, "until", "Palabra Reservada", " Repetir la ejecución mientras se cumpla");
+            tSimbolos.Add(tk39);
         }
 
         public List<Constructor_Tsimbolos> ObtenerTokens()
